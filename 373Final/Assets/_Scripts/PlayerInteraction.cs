@@ -11,12 +11,14 @@ public class PlayerInteraction : MonoBehaviour
     // loads the current interaction functionality to the player - interactable nearby
     public void SetInteraction(InteractionDelegate interactionDelegate)
     {
+        Debug.Log("set");
         interaction = interactionDelegate;
     }
 
     // clears the current interaction functionality - no interactable nearby
     public void ClearInteraction()
     {
+        Debug.Log("reset");
         interaction = null;
     }
 

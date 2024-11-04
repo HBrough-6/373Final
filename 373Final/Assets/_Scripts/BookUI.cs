@@ -8,21 +8,23 @@ public class BookUI : MonoBehaviour
 {
     // text to display when reading a book
     private string[] textToDisplay;
-    private string currentText;
-    private GameObject CurrentPageDisplay;
+    [SerializeField] private GameObject CurrentPageDisplay;
+    [SerializeField] private GameObject TextDisplay;
     private int currentPage;
 
-    public void ActivateBook(string[] pages)
+    [SerializeField] private GameObject book;
+
+    public void ActivateBook(GameObject b)
     {
         // update the current page to the first
         currentPage = 1;
         // assign the books text to the storage variable
-        textToDisplay = pages;
+        textToDisplay = b.GetComponent<InteractableBook>().bookText;
         // update the current page in the UI
         CurrentPageDisplay.GetComponent<TMP_Text>().text = currentPage.ToString() + " / " + textToDisplay.Count().ToString();
-        // display the first page of text
-        currentText = textToDisplay[currentPage];
-        // turn on the UI       gameObject.SetActive(true);
+        UpdatePageText();
+        // turn on the UI
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public void NextPage()
@@ -40,10 +42,10 @@ public class BookUI : MonoBehaviour
     public void PreviousPage()
     {
         // checks if the current page is the last
-        if (currentPage > textToDisplay.Count())
+        if (currentPage > 1)
         {
             // current page increases
-            currentPage++;
+            currentPage--;
             // update the page text
             UpdatePageText();
         }
@@ -52,13 +54,16 @@ public class BookUI : MonoBehaviour
     private void UpdatePageText()
     {
         // update the text displayed in the UI
-        currentText = textToDisplay[currentPage];
+        TextDisplay.GetComponent<TMP_Text>().text = textToDisplay[currentPage - 1];
+
         // update the current page in the UI
         CurrentPageDisplay.GetComponent<TMP_Text>().text = currentPage.ToString() + " / " + textToDisplay.Count().ToString();
     }
 
     public void CloseBook()
     {
-        gameObject.SetActive(false);
+        // turn off the book UI
+        transform.GetChild(0).gameObject.SetActive(false);
+        book.GetComponent<InteractableBook>().CloseBook();
     }
 }
