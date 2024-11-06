@@ -14,6 +14,8 @@ public class Interactable : MonoBehaviour
     [SerializeField] protected bool canBeInteractedWith = true;
 
     [SerializeField] private GameObject interactableText;
+
+    protected GameObject player;
     
     // virtual function for children to override
     public virtual void Activate()
@@ -27,6 +29,7 @@ public class Interactable : MonoBehaviour
         // load the interaction to the player
         if (collision.CompareTag("Player") && canBeInteractedWith)
         {
+            player = collision.gameObject;
             collision.transform.GetComponent<PlayerInteraction>().SetInteraction(Activate);
             SetInteractiveIcon(true);
         }
