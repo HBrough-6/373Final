@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Heath Scene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/_ElizeoMenu.unity
+    guid: ce558ea032c057243a7c889d498af0e1
+  - enabled: 1
+    path: Assets/Scenes/_ElizeoScene.unity
+    guid: 6e998563c34cf3440ba7e7ea5ffd85fa
   m_configObjects: {}
