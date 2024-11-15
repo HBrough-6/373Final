@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+// Created By Brough, Heath
+// Modified 11/4/2024
+// Parent script for interactables
+
+public class Interactable : MonoBehaviour
+{
+    [SerializeField] private Image interactionIcon;
+
+    [SerializeField] protected bool canBeInteractedWith = true;
+
+    [SerializeField] private GameObject interactableText;
+
+    protected GameObject player;
+    
+    // virtual function for children to override
+    public virtual void Activate()
+    {
+        
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        // once player steps inside of the interaction radius, and the object can be interacted with
+        // load the interaction to the player
+        if (collision.CompareTag("Player") && canBeInteractedWith)
+        {
+            player = collision.gameObject;
+            collision.transform.GetComponent<PlayerInteraction>().SetInteraction(Activate);
+            SetInteractiveIcon(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        // once the player steps outside of the interaction radius, clear the current interaction
+        if (collision.CompareTag("Player") && canBeInteractedWith)
+        {
+            SetInteractiveIcon(false);
+            collision.transform.GetComponent<PlayerInteraction>().ClearInteraction();
+        }
+    }
+
+    protected void ToggleCanBeInteractedWith()
+    {
+        canBeInteractedWith = !canBeInteractedWith;
+        interactableText.SetActive(canBeInteractedWith);
+    }
+
+    public void SetInteractiveIcon(bool status)
+    {
+        interactableText.SetActive(status);
+    }
+}
