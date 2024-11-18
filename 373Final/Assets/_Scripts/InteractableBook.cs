@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 // Created By Brough, Heath
 // Modified 11/4/2024
@@ -22,7 +19,7 @@ public class InteractableBook : Interactable
     public override void Activate()
     {
         ToggleBookCam();
-        StartCoroutine(UIDisplayDelay());
+        StartCoroutine(UIAppearDelay());
     }
 
     private void OpenBook()
@@ -33,21 +30,7 @@ public class InteractableBook : Interactable
 
     public void CloseBook()
     {
-        ToggleCanBeInteractedWith();
-        ToggleBookCam();
-    }
-
-    public void LookAtBook()
-    {
-
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("HI"))
-        {
-            Activate();
-        }
+        StartCoroutine(UIDisappearDelay());
     }
 
     private void ToggleBookCam()
@@ -56,9 +39,21 @@ public class InteractableBook : Interactable
         BookView.SetActive(BookCamActive);
     }
 
-    private IEnumerator UIDisplayDelay()
+    private IEnumerator UIAppearDelay()
     {
+        BookUI.FirstPersonController.ToggleMovement();
         yield return new WaitForSeconds(2.2f);
+        BookUI.FirstPersonController.m_MouseLook.SetCursorLock(false);
         OpenBook();
+    }
+
+    private IEnumerator UIDisappearDelay()
+    {
+        ToggleBookCam();
+        BookUI.FirstPersonController.m_MouseLook.SetCursorLock(true);
+        yield return new WaitForSeconds(2.2f);
+        BookUI.FirstPersonController.gameObject.GetComponent<PlayerInteraction>().ToggleInteraction();
+        BookUI.FirstPersonController.ToggleMovement();
+        ToggleCanBeInteractedWith();
     }
 }
