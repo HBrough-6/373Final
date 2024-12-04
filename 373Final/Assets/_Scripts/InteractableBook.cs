@@ -42,6 +42,7 @@ public class InteractableBook : Interactable
     private IEnumerator UIAppearDelay()
     {
         BookUI.FirstPersonController.ToggleMovement();
+        PlayerInteraction.Instance.ToggleInteraction();
         yield return new WaitForSeconds(2.2f);
         BookUI.FirstPersonController.m_MouseLook.SetCursorLock(false);
         OpenBook();
@@ -52,7 +53,7 @@ public class InteractableBook : Interactable
         ToggleBookCam();
         BookUI.FirstPersonController.m_MouseLook.SetCursorLock(true);
         yield return new WaitForSeconds(2.2f);
-        BookUI.FirstPersonController.gameObject.GetComponent<PlayerInteraction>().ToggleInteraction();
+        PlayerInteraction.Instance.ToggleInteraction();
         BookUI.FirstPersonController.ToggleMovement();
         ToggleCanBeInteractedWith();
     }

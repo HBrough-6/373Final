@@ -15,8 +15,13 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] private GameObject interactableText;
 
-    protected GameObject player;
-    
+    protected PlayerInteraction player;
+
+    private void Start()
+    {
+        player = PlayerInteraction.Instance;
+    }
+
     // virtual function for children to override
     public virtual void Activate()
     {
@@ -29,8 +34,7 @@ public class Interactable : MonoBehaviour
         // load the interaction to the player
         if (collision.CompareTag("Player") && canBeInteractedWith)
         {
-            player = collision.gameObject;
-            collision.transform.GetComponent<PlayerInteraction>().SetInteraction(Activate);
+            player.SetInteraction(Activate);
             SetInteractiveIcon(true);
         }
     }
@@ -41,7 +45,7 @@ public class Interactable : MonoBehaviour
         if (collision.CompareTag("Player") && canBeInteractedWith)
         {
             SetInteractiveIcon(false);
-            collision.transform.GetComponent<PlayerInteraction>().ClearInteraction();
+            player.ClearInteraction();
         }
     }
 

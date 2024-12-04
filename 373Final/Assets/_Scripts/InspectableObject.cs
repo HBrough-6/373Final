@@ -14,7 +14,7 @@ public class InspectableObject : Interactable
     public override void Activate()
     {
 
-        StartCoroutine(UIAppearDelay());
+        UIAppearDelay();
     }
 
     public void Inspect()
@@ -30,24 +30,23 @@ public class InspectableObject : Interactable
         inspectCam.SetActive(inspecting);
     }
 
-    private IEnumerator UIAppearDelay()
+    private void UIAppearDelay()
     {
         ToggleInspectCam();
         ToggleCanBeInteractedWith();
         player.GetComponent<FirstPersonController>().ToggleMovement();
-        yield return new WaitForSeconds(2.2f);
+        PlayerInteraction.Instance.ToggleInteraction();
 
         player.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(false);
-
+        
         Inspect();
     }
 
-    public IEnumerator UIDisappearDelay()
+    public void UIDisappearDelay()
     {
         ToggleInspectCam();
         player.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(true);
-        yield return new WaitForSeconds(2.2f);
-        player.GetComponent<PlayerInteraction>().ToggleInteraction();
+        PlayerInteraction.Instance.ToggleInteraction();
         player.GetComponent<FirstPersonController>().ToggleMovement();
         ToggleCanBeInteractedWith();
     }

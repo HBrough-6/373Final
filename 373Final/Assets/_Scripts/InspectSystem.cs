@@ -52,7 +52,7 @@ public class InspectSystem : MonoBehaviour
     {
         inspecting = false;
         Destroy(objectToInspect.gameObject);
-        StartCoroutine(objectHandler.UIDisappearDelay());
+        objectHandler.UIDisappearDelay();
         objectToInspect = null;
         objectHandler = null;
         // set the UI inactive

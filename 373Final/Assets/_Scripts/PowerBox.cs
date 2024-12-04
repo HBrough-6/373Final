@@ -20,9 +20,10 @@ public class PowerBox : Interactable
     // activate each object in the list
     public override void Activate()
     {
-
+        Debug.Log("power");
         if (!activated)
         {
+            Debug.Log("inner");
             StartCoroutine(FlipLever());      
         }
         
@@ -39,14 +40,6 @@ public class PowerBox : Interactable
         for (int i = 0; i < objects.Count(); i++)
         {
             objects[i].TurnOn();
-        }
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("BUTTON"))
-        {
-            Activate(); 
         }
     }
 }
