@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CoinTrayUI : MonoBehaviour
@@ -47,13 +45,6 @@ public class CoinTrayUI : MonoBehaviour
     private TMP_Text goldCountText;
 
 
-
-    
-
-    [SerializeField] private GameObject copperCoinPrefab;
-    [SerializeField] private GameObject silverCoinPrefab;
-    [SerializeField] private GameObject goldCoinPrefab;
-
     private void Awake()
     {
         // assign buttons
@@ -74,7 +65,7 @@ public class CoinTrayUI : MonoBehaviour
         OpenUI();
     }
 
-   
+
     // keep change to either -1 or 1
     public void ChangeCopperCoinCount(int change)
     {

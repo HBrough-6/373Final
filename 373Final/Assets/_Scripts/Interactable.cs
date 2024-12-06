@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,16 +14,19 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject interactableText;
 
     protected PlayerInteraction player;
+    private Transform tray;
+
 
     private void Start()
     {
         player = PlayerInteraction.Instance;
+        tray = transform.GetChild(2);
     }
 
     // virtual function for children to override
     public virtual void Activate()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider collision)
