@@ -14,13 +14,12 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject interactableText;
 
     protected PlayerInteraction player;
-    private Transform tray;
+
 
 
     private void Start()
     {
         player = PlayerInteraction.Instance;
-        tray = transform.GetChild(2);
     }
 
     // virtual function for children to override
