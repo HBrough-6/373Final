@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CoinTray : Interactable
@@ -81,8 +80,8 @@ public class CoinTray : Interactable
                 tempInfo.coinStack = i;
                 tempInfo.posInStack = coinStacks[i].Count - 1;
             }
-        }    
-        
+        }
+
         // if the coin is not close enough to any stacks then create a new stack
         if (!stacked)
         {
@@ -130,7 +129,7 @@ public class CoinTray : Interactable
         }
 
         // get a reference to the most recent coin and its info
-        GameObject temp = coinTypes[coinTypeIndex][coinTypes[coinTypeIndex].Count-1];
+        GameObject temp = coinTypes[coinTypeIndex][coinTypes[coinTypeIndex].Count - 1];
         CoinInfo tempInfo = temp.GetComponent<CoinInfoContainer>().info;
         float distBetweenCoins = (temp.transform.GetChild(1).position.y - temp.transform.position.y) * -1;
         // store the coin's values
@@ -142,7 +141,7 @@ public class CoinTray : Interactable
         Debug.Log(posInStack + " " + coinStacks[stack].Count);
         // coinStacks[stack].Find(coinStacks[stack][posInStack]); trying to find if the coin is actually in the stack when it is being destroyed
         coinStacks[stack].Remove(coinStacks[stack][posInStack]);
-        
+
 
 
         // destroy the coin
@@ -150,7 +149,18 @@ public class CoinTray : Interactable
 
         // if the stack is empty then get rid of it
         if (coinStacks[stack].Count < 1)
+        {
             coinStacks.Remove(coinStacks[stack]);
+            // when removing a stack, update the stack number of all higher stacks
+            for (int i = stack; i < coinStacks.Count; i++)
+            {
+                foreach (GameObject coin in coinStacks[i])
+                {
+                    coin.GetComponent<CoinInfoContainer>().info.coinStack = i;
+                }
+            }
+        }
+
         // stack is not empty, move coins
         else
         {
@@ -168,7 +178,7 @@ public class CoinTray : Interactable
     {
         if (GUILayout.Button("press"))
         {
-            
+
             switch (Random.Range(0, 3))
             {
                 case 0:
