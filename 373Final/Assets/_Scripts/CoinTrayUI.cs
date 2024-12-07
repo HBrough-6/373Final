@@ -17,6 +17,8 @@ public class CoinTrayUI : MonoBehaviour
 
     [SerializeField] private bool completed = false;
 
+    [SerializeField] private CoinTray tray;
+
     // coin weights
     private int copperWeight = 7;
     private int silverWeight = 9;
@@ -70,6 +72,14 @@ public class CoinTrayUI : MonoBehaviour
     public void ChangeCopperCoinCount(int change)
     {
         currentCopperCoins += change;
+        if (change == 1)
+        {
+            tray.SpawnCoin("Copper");
+        }
+        else
+        {
+            tray.RemoveCoin("Copper");
+        }
         CheckCoinButtonStatuses("Copper");
         copperCountText.text = currentCopperCoins.ToString();
     }
@@ -78,6 +88,14 @@ public class CoinTrayUI : MonoBehaviour
     public void ChangeSilverCoinCount(int change)
     {
         currentSilverCoins += change;
+        if (change == 1)
+        {
+            tray.SpawnCoin("Silver");
+        }
+        else
+        {
+            tray.RemoveCoin("Silver");
+        }
         CheckCoinButtonStatuses("Silver");
         silverCountText.text = currentSilverCoins.ToString();
     }
@@ -86,6 +104,14 @@ public class CoinTrayUI : MonoBehaviour
     public void ChangeGoldCoinCount(int change)
     {
         currentGoldCoins += change;
+        if (change == 1)
+        {
+            tray.SpawnCoin("Gold");
+        }
+        else
+        {
+            tray.RemoveCoin("Gold");
+        }
         CheckCoinButtonStatuses("Gold");
         goldCountText.text = currentGoldCoins.ToString();
     }

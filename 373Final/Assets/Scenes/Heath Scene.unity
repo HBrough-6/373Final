@@ -2015,6 +2015,7 @@ MonoBehaviour:
   currentWeight: 0
   targetWeight: 1
   completed: 0
+  tray: {fileID: 1504118199}
   CopperParent: {fileID: 777387111}
   SilverParent: {fileID: 588679747}
   GoldParent: {fileID: 1763842940}
@@ -2632,7 +2633,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.1, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &881802882
 GameObject:
@@ -5203,6 +5204,7 @@ MonoBehaviour:
   interactionIcon: {fileID: 0}
   canBeInteractedWith: 1
   interactableText: {fileID: 1876639895}
+  goldList: []
   copperCoinPrefab: {fileID: 2546270689971246019, guid: 0ec9fe60a697b79418010f8594d4893b,
     type: 3}
   silverCoinPrefab: {fileID: 1703500009812320787, guid: 2e4ce4e723d061c4c8724c76f1ecd46b,
@@ -5210,7 +5212,7 @@ MonoBehaviour:
   goldCoinPrefab: {fileID: 1613270406086828351, guid: 73b9c96ee8d47794ba8872320c11e4b4,
     type: 3}
   coinSpawn: {fileID: 837966819}
-  distBetweenStacks: 0.5
+  distBetweenStacks: 0.03
 --- !u!1 &1519823784
 GameObject:
   m_ObjectHideFlags: 0
