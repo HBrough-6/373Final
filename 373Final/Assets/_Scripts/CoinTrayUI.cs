@@ -1,4 +1,6 @@
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,39 +34,82 @@ public class CoinTrayUI : MonoBehaviour
     [SerializeField] private Transform GoldParent;
 
     // button references
-    private Button MoreCopperButton;
-    private Button LessCopperButton;
+    private GameObject MoreCopperButton;
+    private GameObject LessCopperButton;
 
-    private Button MoreSilverButton;
-    private Button LessSilverButton;
+    private GameObject MoreSilverButton;
+    private GameObject LessSilverButton;
 
-    private Button MoreGoldButton;
-    private Button LessGoldButton;
+    private GameObject MoreGoldButton;
+    private GameObject LessGoldButton;
 
     // text references
     private TMP_Text copperCountText;
     private TMP_Text silverCountText;
     private TMP_Text goldCountText;
 
+    // selected coin references
+    private float copperThreshold;
+    private float goldThreshold;
+
+    private Transform copperBackground;
+    private Transform silverBackground;
+    private Transform goldBackground;
+
+    private string currentlyMousedOverCoinType = "Copper";
+
+    // currently moused over coin reference
+    [SerializeField] private Transform mousedOver;
 
     private void Awake()
     {
+        // assign coin backgrounds
+        copperBackground = transform.GetChild(0).GetChild(1);
+        silverBackground = transform.GetChild(0).GetChild(2);
+        goldBackground = transform.GetChild(0).GetChild(3);
+
+
         // assign buttons
-        MoreCopperButton = CopperParent.GetChild(0).GetComponent<Button>();
-        LessCopperButton = CopperParent.GetChild(1).GetComponent<Button>();
+        MoreCopperButton = CopperParent.GetChild(0).gameObject;
+        LessCopperButton = CopperParent.GetChild(1).gameObject;
 
-        MoreSilverButton = SilverParent.GetChild(0).GetComponent<Button>();
-        LessSilverButton = SilverParent.GetChild(1).GetComponent<Button>();
+        MoreSilverButton = SilverParent.GetChild(0).gameObject;
+        LessSilverButton = SilverParent.GetChild(1).gameObject;
 
-        MoreGoldButton = GoldParent.GetChild(0).GetComponent<Button>();
-        LessGoldButton = GoldParent.GetChild(1).GetComponent<Button>();
+        MoreGoldButton = GoldParent.GetChild(0).gameObject;
+        LessGoldButton = GoldParent.GetChild(1).gameObject;
 
         // Assign coin count text
         copperCountText = CopperParent.GetChild(2).GetComponent<TMP_Text>();
         silverCountText = SilverParent.GetChild(2).GetComponent<TMP_Text>();
         goldCountText = GoldParent.GetChild(2).GetComponent<TMP_Text>();
 
+        Bounds temp = silverBackground.GetComponent<BoxCollider2D>().bounds;
+        copperThreshold = temp.center.x - temp.extents.x;
+        goldThreshold = temp.center.x + temp.extents.x;
+
         OpenUI();
+    }
+
+    private void Update()
+    {
+        // get mouse position
+        // compare it
+        // move the selector
+        Vector2 temp = Input.mousePosition;
+
+        if (temp.x < copperThreshold && currentlyMousedOverCoinType != "Copper")
+        {
+            SetSelectedCoin("Copper", copperBackground.position);
+        }
+        else if (temp.x > goldThreshold && currentlyMousedOverCoinType != "Gold")
+        {
+            SetSelectedCoin("Gold", goldBackground.position);
+        }
+        else if (currentlyMousedOverCoinType != "Silver" && temp.x > copperThreshold && temp.x < goldThreshold)
+        {
+            SetSelectedCoin("Silver", silverBackground.position);
+        }
     }
 
 
@@ -126,23 +171,23 @@ public class CoinTrayUI : MonoBehaviour
                 if (currentCopperCoins <= 0)
                 {
                     // can't go any lower, disable less copper coins button
-                    LessCopperButton.interactable = false;
+                    LessCopperButton.SetActive(false);
                 }
                 else
                 {
                     // can go lower, enable less copper coins button
-                    LessCopperButton.interactable = true;
+                    LessCopperButton.SetActive(true);
                 }
 
                 if (currentCopperCoins >= playerCopperCoins)
                 {
                     // can't go any higher, disable more copper coins button
-                    MoreCopperButton.interactable = false;
+                    MoreCopperButton.SetActive(false);
                 }
                 else
                 {
                     // can go higher, enable more copper coins button
-                    MoreCopperButton.interactable = true;
+                    MoreCopperButton.SetActive(true);
                 }
                 break;
 
@@ -151,23 +196,23 @@ public class CoinTrayUI : MonoBehaviour
                 if (currentSilverCoins <= 0)
                 {
                     // can't go any lower, disable less copper coins button
-                    LessSilverButton.interactable = false;
+                    LessSilverButton.SetActive(false);
                 }
                 else
                 {
                     // can go lower, enable less copper coins button
-                    LessSilverButton.interactable = true;
+                    LessSilverButton.SetActive(true);
                 }
 
                 if (currentSilverCoins >= playerSilverCoins)
                 {
                     // can't go any higher, disable more copper coins button
-                    MoreSilverButton.interactable = false;
+                    MoreSilverButton.SetActive(false);
                 }
                 else
                 {
                     // can go higher, enable more copper coins button
-                    MoreSilverButton.interactable = true;
+                    MoreSilverButton.SetActive(true);
                 }
                 break;
 
@@ -176,30 +221,54 @@ public class CoinTrayUI : MonoBehaviour
                 if (currentGoldCoins <= 0)
                 {
                     // can't go any lower, disable less copper coins button
-                    LessGoldButton.interactable = false;
+                    LessGoldButton.SetActive(false);
                 }
                 else
                 {
                     // can go lower, enable less copper coins button
-                    LessGoldButton.interactable = true;
+                    LessGoldButton.SetActive(true);
                 }
 
                 if (currentGoldCoins >= playerGoldCoins)
                 {
                     // can't go any higher, disable more copper coins button
-                    MoreGoldButton.interactable = false;
+                    MoreGoldButton.SetActive(false);
                 }
                 else
                 {
                     // can go higher, enable more copper coins button
-                    MoreGoldButton.interactable = true;
+                    MoreGoldButton.SetActive(true);
                 }
                 break;
             default:
                 Debug.Log("what is " + coinType + "?? Copper, Silver, or Gold please");
                 break;
         }
+    }
 
+    private void UpdateWeightInUI()
+    {   ////////////////////////////////////////////////////////////////////////////// do this
+        currentWeight = currentCopperCoins * copperWeight + currentSilverCoins * silverWeight + currentGoldCoins * goldWeight;
+        string weightInString = currentWeight.ToString();
+    }
+
+    public void SetSelectedCoin(string coinType, Vector3 position)
+    {
+        
+        // set the correct buttons active and all others inactive
+        mousedOver.position = position;
+        MoreCopperButton.SetActive(false);
+        LessCopperButton.SetActive(false);
+        MoreSilverButton.SetActive(false);
+        LessSilverButton.SetActive(false);
+        MoreGoldButton.SetActive(false);
+        LessGoldButton.SetActive(false);
+
+        CheckCoinButtonStatuses(coinType);
+        currentlyMousedOverCoinType = coinType;
+
+        // move the selector to the right position
+        mousedOver.position = position;
     }
 
     public void OpenUI()

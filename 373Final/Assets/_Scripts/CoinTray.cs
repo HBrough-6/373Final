@@ -173,34 +173,4 @@ public class CoinTray : Interactable
             }
         }
     }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("press"))
-        {
-
-            switch (Random.Range(0, 3))
-            {
-                case 0:
-                    SpawnCoin("Copper");
-                    break;
-                case 1:
-                    SpawnCoin("Silver");
-                    break;
-                case 2:
-                    SpawnCoin("Gold");
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (GUILayout.Button("clear"))
-        {
-            ClearTray();
-        }
-        if (GUILayout.Button("destroy copper"))
-        {
-            RemoveCoin("Copper");
-        }
-    }
 }
