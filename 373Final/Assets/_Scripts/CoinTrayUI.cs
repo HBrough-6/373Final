@@ -21,11 +21,6 @@ public class CoinTrayUI : MonoBehaviour
 
     [SerializeField] private CoinTray tray;
 
-    // coin weights
-    private int copperWeight = 7;
-    private int silverWeight = 9;
-    private int goldWeight = 17;
-
     private int totalWeight = 0;
 
     // coin parents
@@ -87,8 +82,6 @@ public class CoinTrayUI : MonoBehaviour
         Bounds temp = silverBackground.GetComponent<BoxCollider2D>().bounds;
         copperThreshold = temp.center.x - temp.extents.x;
         goldThreshold = temp.center.x + temp.extents.x;
-
-        OpenUI();
     }
 
     private void Update()
@@ -248,8 +241,7 @@ public class CoinTrayUI : MonoBehaviour
 
     private void UpdateWeightInUI()
     {   ////////////////////////////////////////////////////////////////////////////// do this
-        currentWeight = currentCopperCoins * copperWeight + currentSilverCoins * silverWeight + currentGoldCoins * goldWeight;
-        string weightInString = currentWeight.ToString();
+        
     }
 
     public void SetSelectedCoin(string coinType, Vector3 position)

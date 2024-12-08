@@ -5,10 +5,10 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class InspectableObject : Interactable
 {
     [SerializeField] private GameObject ObjectPrefab;
-    [SerializeField] private GameObject inspectCam;
+    [SerializeField] private GameObject CutCam;
+    [SerializeField] private GameObject inspectCamPos;
     [SerializeField] private Transform objectSpawnPoint;
     [SerializeField] private InspectSystem inspectSystem;
-    [SerializeField] private InspectableObject imBegging;
     private bool inspecting = false;
 
     public override void Activate()
@@ -27,7 +27,9 @@ public class InspectableObject : Interactable
     public void ToggleInspectCam()
     {
         inspecting = !inspecting;
-        inspectCam.SetActive(inspecting);
+        CutCam.transform.position = inspectCamPos.transform.position;
+        CutCam.transform.rotation = inspectCamPos.transform.rotation;
+        CutCam.SetActive(inspecting);
     }
 
     private void UIAppearDelay()

@@ -21,6 +21,7 @@ public class BookUI : MonoBehaviour
     }
     public void ActivateBook(GameObject b)
     {
+        book = b;
         // update the current page to the first
         currentPage = 1;
         // assign the books text to the storage variable

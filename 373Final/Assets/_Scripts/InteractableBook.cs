@@ -10,9 +10,9 @@ public class InteractableBook : Interactable
     [SerializeField] public string[] bookText;
     [SerializeField] private AudioClip OpenBookSound;
     [SerializeField] private AudioClip CloseBookSound;
-    [SerializeField] private Camera BookViewCamera;
+    [SerializeField] private Transform BlendVirtualCam;
     [SerializeField] private BookUI BookUI;
-    [SerializeField] private GameObject BookView;
+    [SerializeField] private Transform BookView;
 
     private bool BookCamActive = false;
 
@@ -35,8 +35,13 @@ public class InteractableBook : Interactable
 
     private void ToggleBookCam()
     {
+        // set the camera active
         BookCamActive = !BookCamActive;
-        BookView.SetActive(BookCamActive);
+        // change the position of the camera to match the book view if you are turning on the camera
+        BlendVirtualCam.position = BookView.position;
+        BlendVirtualCam.rotation = BookView.rotation;
+        // change the status of the camera
+        BlendVirtualCam.gameObject.SetActive(!BlendVirtualCam.gameObject.activeInHierarchy);
     }
 
     private IEnumerator UIAppearDelay()

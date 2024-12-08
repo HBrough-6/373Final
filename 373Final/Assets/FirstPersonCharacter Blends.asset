@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CustomBlends:
   - m_From: PlayerVirtualCam
-    m_To: BookCam
+    m_To: BlendCam
     m_Blend:
       m_Style: 1
       m_Time: 2
@@ -24,7 +24,7 @@ MonoBehaviour:
         m_PreInfinity: 0
         m_PostInfinity: 0
         m_RotationOrder: 0
-  - m_From: BookCam
+  - m_From: BlendCam
     m_To: PlayerVirtualCam
     m_Blend:
       m_Style: 1

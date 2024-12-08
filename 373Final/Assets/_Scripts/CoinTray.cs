@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CoinTray : Interactable
 {
+
+    [SerializeField] private Transform CutCam;
+    [SerializeField] private Transform CamPos;
     // coins[stack][individual coin -- lower index, lower the in the stack]
     private List<List<GameObject>> coinStacks = new();
     // {Copper, Silver, Gold}
     private List<GameObject>[] coinTypes = { new List<GameObject>(), new List<GameObject>(), new List<GameObject>() };
 
     [SerializeField] private List<GameObject> goldList;
-    //private List<GameObject> coins = new();
 
     [SerializeField] private GameObject copperCoinPrefab;
     [SerializeField] private GameObject silverCoinPrefab;
@@ -18,17 +21,31 @@ public class CoinTray : Interactable
     [SerializeField] BoxCollider coinSpawn;
     private Vector4 spawnBounds;
 
+    private TMP_Text ones;
+    private TMP_Text tens;
+    private TMP_Text hundreds;
+
     [SerializeField] private float distBetweenStacks = 0.05f;
+
+    // coin weights
+    private int copperWeight = 7;
+    private int silverWeight = 9;
+    private int goldWeight = 17;
 
     private void Awake()
     {
         Bounds temp = coinSpawn.bounds;
         // (bottomleft.x, bottomleft.z, topRight.x, topright.z)
         spawnBounds = new Vector4(temp.center.x - temp.extents.x, temp.center.z - temp.extents.z, temp.center.x + temp.extents.x, temp.center.z + temp.extents.z);
+
+        ones = transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
+        tens = transform.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
+        hundreds = transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
     }
 
     public override void Activate()
     {
+        // activate the coin tray UI and then toggle the camera
         // CoinTrayUI.Activate();
     }
 
@@ -90,6 +107,7 @@ public class CoinTray : Interactable
             tempInfo.coinStack = coinStacks.Count - 1;
             tempInfo.posInStack = 0;
         }
+        UpdateWeight();
     }
 
     // remove all coins from the tray
@@ -172,5 +190,39 @@ public class CoinTray : Interactable
                 coinStacks[stack][i].GetComponent<CoinInfoContainer>().info.posInStack = i;
             }
         }
+        UpdateWeight();
+    }
+
+    public void UpdateWeight()
+    {
+        int currentWeight = coinTypes[0].Count * copperWeight + coinTypes[1].Count * silverWeight + coinTypes[2].Count * goldWeight;
+        string weightInString = currentWeight.ToString();
+        if (weightInString.Length == 1)
+        {
+            ones.text = weightInString[0].ToString();
+            tens.text = "0";
+            hundreds.text = "0";
+        }
+        else if (weightInString.Length == 2)
+        {
+            ones.text = weightInString[1].ToString();
+            tens.text = weightInString[0].ToString();
+            hundreds.text = "0";
+        }
+        else if (weightInString.Length == 3)
+        {
+            ones.text = weightInString[2].ToString();
+            tens.text = weightInString[1].ToString();
+            hundreds.text = weightInString[0].ToString();
+        }
+    }
+
+    private void ToggleCutCam()
+    {
+        // set the position and rotation of the camera
+        CutCam.position = CamPos.position;
+        CutCam.rotation = CamPos.rotation;
+        // toggle the camera
+        CutCam.gameObject.SetActive(CutCam.gameObject.activeInHierarchy);
     }
 }
