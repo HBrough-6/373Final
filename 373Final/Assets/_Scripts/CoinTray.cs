@@ -1,18 +1,23 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class CoinTray : Interactable
 {
 
-    [SerializeField] private Transform CutCam;
-    [SerializeField] private Transform CamPos;
     // coins[stack][individual coin -- lower index, lower the in the stack]
     private List<List<GameObject>> coinStacks = new();
     // {Copper, Silver, Gold}
     private List<GameObject>[] coinTypes = { new List<GameObject>(), new List<GameObject>(), new List<GameObject>() };
 
     [SerializeField] private List<GameObject> goldList;
+
+    [SerializeField] private VIPDoor vipDoor;
+
+    [SerializeField] private CoinTrayUI ui;
+    [SerializeField] private Transform CutCam;
+    [SerializeField] private Transform CamPos;
 
     [SerializeField] private GameObject copperCoinPrefab;
     [SerializeField] private GameObject silverCoinPrefab;
@@ -25,12 +30,19 @@ public class CoinTray : Interactable
     private TMP_Text tens;
     private TMP_Text hundreds;
 
+
+
     [SerializeField] private float distBetweenStacks = 0.05f;
 
     // coin weights
     private int copperWeight = 7;
     private int silverWeight = 9;
     private int goldWeight = 17;
+
+    // target weight
+    [SerializeField] private int targetWeight = 107;
+    private int currentWeight = 0;
+
 
     private void Awake()
     {
@@ -45,8 +57,30 @@ public class CoinTray : Interactable
 
     public override void Activate()
     {
+        // disable the player
+        ToggleCanBeInteractedWith();
+        player.GetComponent<FirstPersonController>().ToggleMovement();
+        PlayerInteraction.Instance.ToggleInteraction();
+        player.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(false);
+
+
+        // enable the weight text
+        transform.GetChild(0).gameObject.SetActive(true);
         // activate the coin tray UI and then toggle the camera
-        // CoinTrayUI.Activate();
+        ToggleCutCam();
+        ui.OpenUI();
+    }
+
+    public void DisableTray()
+    {
+        player.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(true);
+        PlayerInteraction.Instance.ToggleInteraction();
+        player.GetComponent<FirstPersonController>().ToggleMovement();
+        ToggleCanBeInteractedWith();
+        ToggleCutCam();
+        ClearTray();
+        transform.GetChild(0).gameObject.SetActive(false);
+
     }
 
     // spawn a coin at a random point on the tray
@@ -125,6 +159,7 @@ public class CoinTray : Interactable
         coinTypes[1].Clear();
         coinTypes[2].Clear();
         coinStacks = new();
+        UpdateWeight();
     }
 
     public void RemoveCoin(string CoinType)
@@ -156,7 +191,6 @@ public class CoinTray : Interactable
 
         // remove the coin from both data structures
         coinTypes[coinTypeIndex].Remove(temp);
-        Debug.Log(posInStack + " " + coinStacks[stack].Count);
         // coinStacks[stack].Find(coinStacks[stack][posInStack]); trying to find if the coin is actually in the stack when it is being destroyed
         coinStacks[stack].Remove(coinStacks[stack][posInStack]);
 
@@ -195,7 +229,8 @@ public class CoinTray : Interactable
 
     public void UpdateWeight()
     {
-        int currentWeight = coinTypes[0].Count * copperWeight + coinTypes[1].Count * silverWeight + coinTypes[2].Count * goldWeight;
+
+        currentWeight = coinTypes[0].Count * copperWeight + coinTypes[1].Count * silverWeight + coinTypes[2].Count * goldWeight;
         string weightInString = currentWeight.ToString();
         if (weightInString.Length == 1)
         {
@@ -217,12 +252,30 @@ public class CoinTray : Interactable
         }
     }
 
-    private void ToggleCutCam()
+    public void ToggleCutCam()
     {
         // set the position and rotation of the camera
         CutCam.position = CamPos.position;
         CutCam.rotation = CamPos.rotation;
         // toggle the camera
-        CutCam.gameObject.SetActive(CutCam.gameObject.activeInHierarchy);
+        CutCam.gameObject.SetActive(!CutCam.gameObject.activeInHierarchy);
+    }
+
+    public void CheckForCorrectWeight()
+    {
+        if (currentWeight == targetWeight)
+        {
+            // unlock door
+            vipDoor.Unlock();
+            ui.CloseUI();
+            ToggleCanBeInteractedWith();
+            // play unlocking sound
+        }
+        else
+        {
+            ClearTray();
+            ui.ResetCount();
+            // play incorrect buzzer sound
+        }
     }
 }

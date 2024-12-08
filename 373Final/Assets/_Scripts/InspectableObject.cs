@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -40,7 +39,7 @@ public class InspectableObject : Interactable
         PlayerInteraction.Instance.ToggleInteraction();
 
         player.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(false);
-        
+
         Inspect();
     }
 

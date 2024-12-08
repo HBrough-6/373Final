@@ -1,8 +1,5 @@
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CoinTrayUI : MonoBehaviour
 {
@@ -14,9 +11,6 @@ public class CoinTrayUI : MonoBehaviour
     [SerializeField] private int playerSilverCoins = 0;
     [SerializeField] private int playerGoldCoins = 0;
 
-    [SerializeField] private int currentWeight = 0;
-    [SerializeField] private int targetWeight = 1;
-
     [SerializeField] private bool completed = false;
 
     [SerializeField] private CoinTray tray;
@@ -27,6 +21,8 @@ public class CoinTrayUI : MonoBehaviour
     [SerializeField] private Transform CopperParent;
     [SerializeField] private Transform SilverParent;
     [SerializeField] private Transform GoldParent;
+
+    private GameObject UIContainer;
 
     // button references
     private GameObject MoreCopperButton;
@@ -58,6 +54,8 @@ public class CoinTrayUI : MonoBehaviour
 
     private void Awake()
     {
+        UIContainer = transform.GetChild(0).gameObject;
+
         // assign coin backgrounds
         copperBackground = transform.GetChild(0).GetChild(1);
         silverBackground = transform.GetChild(0).GetChild(2);
@@ -80,28 +78,33 @@ public class CoinTrayUI : MonoBehaviour
         goldCountText = GoldParent.GetChild(2).GetComponent<TMP_Text>();
 
         Bounds temp = silverBackground.GetComponent<BoxCollider2D>().bounds;
-        copperThreshold = temp.center.x - temp.extents.x;
-        goldThreshold = temp.center.x + temp.extents.x;
+        copperThreshold = silverBackground.GetChild(2).position.x;
+        goldThreshold = silverBackground.GetChild(3).position.x;
     }
 
     private void Update()
     {
-        // get mouse position
-        // compare it
-        // move the selector
-        Vector2 temp = Input.mousePosition;
+        // only check when the container is active
+        if (UIContainer.activeInHierarchy)
+        {
+            // get mouse position
+            // compare it
+            // move the selector
+            Vector2 temp = Input.mousePosition;
 
-        if (temp.x < copperThreshold && currentlyMousedOverCoinType != "Copper")
-        {
-            SetSelectedCoin("Copper", copperBackground.position);
-        }
-        else if (temp.x > goldThreshold && currentlyMousedOverCoinType != "Gold")
-        {
-            SetSelectedCoin("Gold", goldBackground.position);
-        }
-        else if (currentlyMousedOverCoinType != "Silver" && temp.x > copperThreshold && temp.x < goldThreshold)
-        {
-            SetSelectedCoin("Silver", silverBackground.position);
+            if (temp.x < copperThreshold && currentlyMousedOverCoinType != "Copper")
+            {
+                SetSelectedCoin("Copper", copperBackground.position);
+            }
+            else if (currentlyMousedOverCoinType != "Silver" && temp.x > copperThreshold && temp.x < goldThreshold)
+            {
+                SetSelectedCoin("Silver", silverBackground.position);
+            }
+            else if (temp.x > goldThreshold && currentlyMousedOverCoinType != "Gold")
+            {
+                SetSelectedCoin("Gold", goldBackground.position);
+            }
+
         }
     }
 
@@ -239,14 +242,9 @@ public class CoinTrayUI : MonoBehaviour
         }
     }
 
-    private void UpdateWeightInUI()
-    {   ////////////////////////////////////////////////////////////////////////////// do this
-        
-    }
-
     public void SetSelectedCoin(string coinType, Vector3 position)
     {
-        
+
         // set the correct buttons active and all others inactive
         mousedOver.position = position;
         MoreCopperButton.SetActive(false);
@@ -263,9 +261,21 @@ public class CoinTrayUI : MonoBehaviour
         mousedOver.position = position;
     }
 
+    public void ResetCount()
+    {
+        copperCountText.text = "0";
+        silverCountText.text = "0";
+        goldCountText.text = "0";
+        currentCopperCoins = 0;
+        currentSilverCoins = 0;
+        currentGoldCoins = 0;
+        CheckCoinButtonStatuses("Silver");
+    }
+
     public void OpenUI()
     {
         // set UI active
+        UIContainer.SetActive(true);
         // check button statuses
         CheckCoinButtonStatuses("Copper");
         CheckCoinButtonStatuses("Silver");
@@ -274,12 +284,15 @@ public class CoinTrayUI : MonoBehaviour
         // playerCopperCoins = PlayerInteraction.Instance.copperCoins
         // playerSilverCoins = PlayerInteraction.Instance.silverCoins
         // playerGoldCoins = PlayerInteraction.Instance.goldCoins
+        ResetCount();
     }
 
     public void CloseUI()
     {
+        // turn off the UI
+        UIContainer.SetActive(false);
         // reset the coins currently on the tray
-        // get rid of all coins on the tray
-
+        tray.DisableTray();
+        currentCopperCoins = currentGoldCoins = currentSilverCoins = 0;
     }
 }

@@ -34,6 +34,10 @@ public class Interactable : MonoBehaviour
         // load the interaction to the player
         if (collision.CompareTag("Player") && canBeInteractedWith)
         {
+            if (player == null)
+            {
+                Debug.Log("ssasdasd");
+            }
             player.SetInteraction(Activate);
             SetInteractiveIcon(true);
         }
