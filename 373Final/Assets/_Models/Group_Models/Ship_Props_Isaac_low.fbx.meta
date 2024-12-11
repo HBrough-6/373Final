@@ -3,7 +3,17 @@ guid: 4dd023e8997296743bef05ed99ffa933
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TextureSet1_Heli_Door_SmallProps
+    second: {fileID: 2100000, guid: 4331bcfa664f58f4998f949c3c24e740, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TextureSet2_MediumShipProps
+    second: {fileID: 2100000, guid: 41dfc3f52e130864bb9b4be1abe7a61c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
