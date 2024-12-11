@@ -3,7 +3,17 @@ guid: 3af36020704f219448b99c38538d45d1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BoatFence_Mat
+    second: {fileID: 2100000, guid: 047c1a3c32fadde47955808d141333b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BoatMain_Mat
+    second: {fileID: 2100000, guid: 58825b61c618e5e45868aebcfa1c28ea, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

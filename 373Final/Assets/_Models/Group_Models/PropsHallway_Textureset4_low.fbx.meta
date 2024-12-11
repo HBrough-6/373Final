@@ -3,7 +3,12 @@ guid: 703ed984247704148945772115454703
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HallwayProps_low
+    second: {fileID: 2100000, guid: 51e4eae8145cde44ebdd16db6f3e6565, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
