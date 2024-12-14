@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,12 +13,19 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] private GameObject interactableText;
 
-    protected GameObject player;
-    
+    protected PlayerInteraction player;
+
+
+
+    public virtual void Start()
+    {
+        player = PlayerInteraction.Instance;
+    }
+
     // virtual function for children to override
     public virtual void Activate()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -29,8 +34,11 @@ public class Interactable : MonoBehaviour
         // load the interaction to the player
         if (collision.CompareTag("Player") && canBeInteractedWith)
         {
-            player = collision.gameObject;
-            collision.transform.GetComponent<PlayerInteraction>().SetInteraction(Activate);
+            if (player == null)
+            {
+                Debug.Log("ssasdasd");
+            }
+            player.SetInteraction(Activate);
             SetInteractiveIcon(true);
         }
     }
@@ -41,7 +49,7 @@ public class Interactable : MonoBehaviour
         if (collision.CompareTag("Player") && canBeInteractedWith)
         {
             SetInteractiveIcon(false);
-            collision.transform.GetComponent<PlayerInteraction>().ClearInteraction();
+            player.ClearInteraction();
         }
     }
 

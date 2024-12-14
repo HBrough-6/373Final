@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InspectSystem : MonoBehaviour
 {
     [SerializeField] private Transform objectToInspect;
+    [SerializeField] private InspectableObject objectHandler;
+    [SerializeField] private Camera inspectCamera;
+
 
     public float rotationSpeed = 100f;
 
     private Vector3 previousMousePosition;
 
-    private bool inspecting = true;
+    private bool inspecting = false;
 
     // Update is called once per frame
     void Update()
@@ -38,9 +39,26 @@ public class InspectSystem : MonoBehaviour
         }
     }
 
-    public void StartInspecting(GameObject obj)
+    public void StartInspecting(GameObject objToInspect, InspectableObject currentObject)
     {
         inspecting = true;
-        
+        objectToInspect = objToInspect.transform;
+        objectHandler = currentObject;
+        transform.GetChild(0).gameObject.SetActive(true);
+        inspectCamera.gameObject.SetActive(true);
+    }
+
+    public void StopInspecting()
+    {
+        inspecting = false;
+        Destroy(objectToInspect.gameObject);
+        objectHandler.UIDisappearDelay();
+        objectToInspect = null;
+        objectHandler = null;
+        // set the UI inactive
+        transform.GetChild(0).gameObject.SetActive(false);
+        inspectCamera.gameObject.SetActive(false);
+
+
     }
 }

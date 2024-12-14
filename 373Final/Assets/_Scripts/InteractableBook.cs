@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 // Created By Brough, Heath
 // Modified 11/4/2024
@@ -13,16 +10,16 @@ public class InteractableBook : Interactable
     [SerializeField] public string[] bookText;
     [SerializeField] private AudioClip OpenBookSound;
     [SerializeField] private AudioClip CloseBookSound;
-    [SerializeField] private Camera BookViewCamera;
+    [SerializeField] private Transform BlendVirtualCam;
     [SerializeField] private BookUI BookUI;
-    [SerializeField] private GameObject BookView;
+    [SerializeField] private Transform BookView;
 
     private bool BookCamActive = false;
 
     public override void Activate()
     {
         ToggleBookCam();
-        StartCoroutine(UIDisplayDelay());
+        StartCoroutine(UIAppearDelay());
     }
 
     private void OpenBook()
@@ -33,32 +30,36 @@ public class InteractableBook : Interactable
 
     public void CloseBook()
     {
-        ToggleCanBeInteractedWith();
-        ToggleBookCam();
-    }
-
-    public void LookAtBook()
-    {
-
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("HI"))
-        {
-            Activate();
-        }
+        StartCoroutine(UIDisappearDelay());
     }
 
     private void ToggleBookCam()
     {
+        // set the camera active
         BookCamActive = !BookCamActive;
-        BookView.SetActive(BookCamActive);
+        // change the position of the camera to match the book view if you are turning on the camera
+        BlendVirtualCam.position = BookView.position;
+        BlendVirtualCam.rotation = BookView.rotation;
+        // change the status of the camera
+        BlendVirtualCam.gameObject.SetActive(!BlendVirtualCam.gameObject.activeInHierarchy);
     }
 
-    private IEnumerator UIDisplayDelay()
+    private IEnumerator UIAppearDelay()
     {
+        BookUI.FirstPersonController.ToggleMovement();
+        PlayerInteraction.Instance.ToggleInteraction();
         yield return new WaitForSeconds(2.2f);
+        BookUI.FirstPersonController.m_MouseLook.SetCursorLock(false);
         OpenBook();
+    }
+
+    private IEnumerator UIDisappearDelay()
+    {
+        ToggleBookCam();
+        BookUI.FirstPersonController.m_MouseLook.SetCursorLock(true);
+        yield return new WaitForSeconds(2.2f);
+        PlayerInteraction.Instance.ToggleInteraction();
+        BookUI.FirstPersonController.ToggleMovement();
+        ToggleCanBeInteractedWith();
     }
 }

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerIcon
+  - Coin
+  - ShootableEmblem
+  - FirstCoinShootable
   layers:
   - Default
   - TransparentFX
@@ -12,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - UICamera
   - 
   - 
   - 

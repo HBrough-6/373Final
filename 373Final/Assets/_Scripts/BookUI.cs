@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class BookUI : MonoBehaviour
 {
@@ -14,8 +13,15 @@ public class BookUI : MonoBehaviour
 
     [SerializeField] private GameObject book;
 
+    [SerializeField] private FirstPersonController playerController;
+
+    public FirstPersonController FirstPersonController
+    {
+        get { return playerController; }
+    }
     public void ActivateBook(GameObject b)
     {
+        book = b;
         // update the current page to the first
         currentPage = 1;
         // assign the books text to the storage variable
@@ -64,6 +70,7 @@ public class BookUI : MonoBehaviour
     {
         // turn off the book UI
         transform.GetChild(0).gameObject.SetActive(false);
+        Debug.Log("PRESSED");
         book.GetComponent<InteractableBook>().CloseBook();
     }
 }
