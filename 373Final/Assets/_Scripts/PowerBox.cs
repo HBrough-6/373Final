@@ -24,9 +24,9 @@ public class PowerBox : Interactable
         if (!activated)
         {
             Debug.Log("inner");
-            StartCoroutine(FlipLever());      
+            StartCoroutine(FlipLever());
         }
-        
+
     }
 
 
@@ -41,5 +41,6 @@ public class PowerBox : Interactable
         {
             objects[i].TurnOn();
         }
+        ToggleCanBeInteractedWith();
     }
 }

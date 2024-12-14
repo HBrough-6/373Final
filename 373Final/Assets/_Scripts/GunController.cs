@@ -1,8 +1,6 @@
-using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class GunController : MonoBehaviour
@@ -16,7 +14,7 @@ public class GunController : MonoBehaviour
     [SerializeField] float timeBetweenShots = 0.15f;
     [SerializeField] float bulletDissappearDelay = 3;
 
-    private Transform camera;
+
     [SerializeField] private CinemachineVirtualCamera cmCamera;
 
     private bool equipped = true;
@@ -28,11 +26,6 @@ public class GunController : MonoBehaviour
 
 
     private Coroutine returningToPos;
-
-    private void Start()
-    {
-        camera = Camera.main.transform;
-    }
 
     public void Shoot(InputAction.CallbackContext context)
     {
@@ -58,7 +51,12 @@ public class GunController : MonoBehaviour
                 {
                     Destroy(hit.collider.gameObject);
                     PlayerInventory.Instance.IncreaseScore(100);
-                }    
+                }
+                else if (hit.collider.CompareTag("FirstCoinShootable"))
+                {
+                    Destroy(hit.collider.gameObject);
+                    PlayerInteraction.Instance.GainFirstCoin();
+                }
                 else
                 {
                     GameObject bulletHoleTemp = Instantiate(BulletHole, hit.point, Quaternion.identity);
@@ -115,8 +113,6 @@ public class GunController : MonoBehaviour
         }
     }
 
-    
-
     private IEnumerator ShootDelay()
     {
         canShoot = false;
@@ -141,7 +137,7 @@ public class GunController : MonoBehaviour
         {
             easeOutVal = Mathf.Lerp(easeOutVal, 0, Time.deltaTime * dtMod);
             currentRecoil = Mathf.Lerp(currentRecoil * (easeOutVal * easeOutMod), 0, Time.deltaTime);
-            
+
             temp.m_VerticalAxis.Value -= currentRecoil * Time.deltaTime;
 
             yield return new WaitForEndOfFrame();
@@ -162,6 +158,11 @@ public class GunController : MonoBehaviour
             temp.m_VerticalAxis.Value += currentRecoil * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public void EnableGun()
+    {
+        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
     }
 }
 

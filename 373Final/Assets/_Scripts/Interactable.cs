@@ -17,7 +17,7 @@ public class Interactable : MonoBehaviour
 
 
 
-    private void Start()
+    public virtual void Start()
     {
         player = PlayerInteraction.Instance;
     }

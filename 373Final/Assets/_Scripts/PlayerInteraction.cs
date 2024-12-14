@@ -9,6 +9,13 @@ public class PlayerInteraction : MonoBehaviour
 
     public static PlayerInteraction Instance;
 
+    private bool hasFirstCoin = false;
+
+    public bool HasFirstCoin
+    {
+        get { return hasFirstCoin; }
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -48,5 +55,10 @@ public class PlayerInteraction : MonoBehaviour
             interaction();
 
         }
+    }
+
+    public void GainFirstCoin()
+    {
+        hasFirstCoin = true;
     }
 }
