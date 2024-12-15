@@ -42,7 +42,7 @@ public class SlotMachine : Interactable
         // spin the wheel
         if (player.HasFirstCoin)
         {
-            ToggleCutCam();
+            //ToggleCutCam();
             Decide();
             ToggleCanBeInteractedWith();
             player.ClearInteraction();
@@ -122,7 +122,7 @@ public class SlotMachine : Interactable
                 PlayerInventory.Instance.addGoldCoins(outcome);
                 yield return new WaitForSecondsRealtime(1);
 
-                ToggleCutCam();
+                //ToggleCutCam();
             }
 
             if (done1 < 1)
