@@ -24,7 +24,7 @@ public class InspectableObject : Interactable
     public void Inspect()
     {
         // start inpecting
-        inspectSystem.StartInspecting(ObjectPrefab, this);
+        inspectSystem.StartInspecting(ObjectPrefab, gameObject.GetComponent<InspectableObject>());
     }
 
     public void ToggleInspectCam()
