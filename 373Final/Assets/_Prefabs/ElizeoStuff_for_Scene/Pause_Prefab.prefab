@@ -49,7 +49,8 @@ MonoBehaviour:
   onMapMenu: 0
   pauseObject: {fileID: 8704960827171310564}
   pauseMap: {fileID: 2320430766250512176}
-  gameMapObject: {fileID: 0}
+  gameMapObject: {fileID: 4648430084694556730, guid: cb205a456c90d2642bb033e5613d9b3f,
+    type: 3}
 --- !u!1 &136684173788376145
 GameObject:
   m_ObjectHideFlags: 0
