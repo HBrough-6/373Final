@@ -13,6 +13,9 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] private GameObject interactableText;
 
+    protected Transform CutCam;
+    protected Transform BlendCam;
+
     protected PlayerInteraction player;
 
 
@@ -20,6 +23,8 @@ public class Interactable : MonoBehaviour
     public virtual void Start()
     {
         player = PlayerInteraction.Instance;
+        CutCam = CutCamSingleton.Instance.transform;
+        BlendCam = BlendCamSingleton.Instance.transform;
     }
 
     // virtual function for children to override
@@ -43,7 +48,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider collision)
+    public void OnTriggerExit(Collider collision)
     {
         // once the player steps outside of the interaction radius, clear the current interaction
         if (collision.CompareTag("Player") && canBeInteractedWith)
