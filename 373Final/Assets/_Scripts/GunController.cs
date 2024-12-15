@@ -10,22 +10,32 @@ public class GunController : MonoBehaviour
     [SerializeField] private Animator aimAnimator;
     [SerializeField] private GameObject BulletHole;
 
+    [SerializeField] private AudioClip GainGunLine;
+    [SerializeField] private AudioClip GunShot;
+    [SerializeField] private AudioClip EmblemHit;
+    [SerializeField] private AudioClip CoinHit;
+
+    [SerializeField] private GameObject Reticle;
+
     [SerializeField] private GameObject DisrespectText;
     [SerializeField] private float disrespectTextDisappearTime = 2;
 
     public bool canShoot = false;
-    [SerializeField] float timeBetweenShots = 0.15f;
+    [SerializeField] float timeBetweenShots = 0.3f;
     [SerializeField] float bulletDissappearDelay = 3;
 
 
     [SerializeField] private CinemachineVirtualCamera cmCamera;
 
     public bool equipped = true;
+    private bool reticleVisible = false;
 
     public float easeOutMod = 1.25f;
     public float recoilAmt = 10;
     public float dtMod = 1.25f;
     public float dtMod2 = 1.25f;
+
+    private AudioSource audioSource;
 
 
     private Coroutine returningToPos;
@@ -42,6 +52,8 @@ public class GunController : MonoBehaviour
         }
 
         Instance = this;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -68,7 +80,7 @@ public class GunController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (equipped && context.started && gun.activeInHierarchy)
+        if (equipped && context.started && gun.activeInHierarchy && canShoot)
         {
             // shoot a ray from the middle of the camera
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
@@ -80,11 +92,14 @@ public class GunController : MonoBehaviour
                 {
                     Destroy(hit.collider.gameObject);
                     PlayerInventory.Instance.IncreaseScore(100);
+                    audioSource.PlayOneShot(EmblemHit);
                 }
                 else if (hit.collider.CompareTag("FirstCoinShootable"))
                 {
                     Destroy(hit.collider.gameObject);
                     PlayerInteraction.Instance.GainFirstCoin();
+                    audioSource.PlayOneShot(CoinHit);
+
                 }
                 else
                 {
@@ -110,6 +125,7 @@ public class GunController : MonoBehaviour
             // start the shooting delay
             StartCoroutine(Recoil());
             StartCoroutine(ShootDelay());
+            audioSource.PlayOneShot(GunShot);
         }
     }
 
@@ -118,6 +134,7 @@ public class GunController : MonoBehaviour
         // when the button is pushed
         if (context.started)
         {
+            ToggleReticle();
             // if the weapon is currently equipped
             if (equipped)
             {
@@ -136,10 +153,14 @@ public class GunController : MonoBehaviour
         }
     }
 
+
+
+
     public void Aim(InputAction.CallbackContext context)
     {
         if (equipped)
         {
+            ToggleReticle();
             if (context.started)
             {
                 // aim down sights
@@ -211,6 +232,15 @@ public class GunController : MonoBehaviour
     {
         gun.SetActive(true);
         canShoot = true;
+        gunAnimator.SetBool("Equip", true);
+        ToggleReticle();
+        audioSource.PlayOneShot(GainGunLine);
+    }
+
+    private void ToggleReticle()
+    {
+        reticleVisible = !reticleVisible;
+        Reticle.SetActive(reticleVisible);
     }
 }
 

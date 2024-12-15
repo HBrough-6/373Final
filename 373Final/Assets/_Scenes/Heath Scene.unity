@@ -2159,9 +2159,14 @@ MonoBehaviour:
   aimAnimator: {fileID: 1053498628}
   BulletHole: {fileID: 2800549065512707460, guid: d7fce865da7832946930513400e6f347,
     type: 3}
+  Reticle: {fileID: 0}
+  DisrespectText: {fileID: 0}
+  disrespectTextDisappearTime: 2
+  canShoot: 0
   timeBetweenShots: 0.15
   bulletDissappearDelay: 3
   cmCamera: {fileID: 812201218}
+  equipped: 1
   easeOutMod: 1.26
   recoilAmt: 10
   dtMod: 2.6
@@ -2737,141 +2742,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624938646}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1680538946
+--- !u!1 &1680538946 stripped
 GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5055791131715202684, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+    type: 3}
+  m_PrefabInstance: {fileID: 7086349320234700157}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1680538951}
-  - component: {fileID: 1680538950}
-  - component: {fileID: 1680538949}
-  - component: {fileID: 1680538948}
-  - component: {fileID: 1680538947}
-  m_Layer: 0
-  m_Name: TestBook
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1680538947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680538946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86982038e01d1c6499a40bb4f6bcc8c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionIcon: {fileID: 0}
-  canBeInteractedWith: 1
-  interactableText: {fileID: 1876639895}
-  bookText:
-  - AHAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-  - super cool page
-  - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-    qui officia deserunt mollit anim id est laborum.
-  OpenBookSound: {fileID: 0}
-  CloseBookSound: {fileID: 0}
-  BookUI: {fileID: 2101754470}
-  BookView: {fileID: 1873207174}
---- !u!65 &1680538948
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680538946}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5.55, y: 59.59, z: 5.74}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1680538949
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680538946}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1680538950
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680538946}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1680538951
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680538946}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.03756231, y: 0.7092712, z: -0.037227504, w: 0.7029492}
-  m_LocalPosition: {x: -3.289, y: 0.968, z: 1.44}
-  m_LocalScale: {x: 0.4774985, y: 0.017714312, z: 0.2754917}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1873207174}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90.513, z: -6.063}
 --- !u!1 &1747697545
 GameObject:
   m_ObjectHideFlags: 0
@@ -3175,37 +3051,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1047744869}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1873207173
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1873207174}
-  m_Layer: 0
-  m_Name: BookViewPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1873207174
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873207173}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.22600949, y: 0.7712656, z: -0.30090797, w: -0.5133455}
-  m_LocalPosition: {x: 3.2801476, y: 93.934746, z: 2.5318356}
-  m_LocalScale: {x: 3.301866, y: 4.340079, z: 4.211679}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1680538951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1876639895 stripped
 GameObject:
@@ -4138,6 +3983,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CutCam
       objectReference: {fileID: 0}
+    - target: {fileID: 9101871382831891596, guid: 7492831d5054536419804694ac3c312b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4510,6 +4360,84 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7086349320234700157
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.289
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.968
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4383851637788664660, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4748118250898263503, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: BookUI
+      value: 
+      objectReference: {fileID: 2101754470}
+    - target: {fileID: 4748118250898263503, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: interactableText
+      value: 
+      objectReference: {fileID: 1876639895}
+    - target: {fileID: 5055791131715202684, guid: d4dc13988573fdf46ae7192a0eaa0b98,
+        type: 3}
+      propertyPath: m_Name
+      value: InteractableBook
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d4dc13988573fdf46ae7192a0eaa0b98, type: 3}
 --- !u!1001 &7125695520219653405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4668,6 +4596,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BlendCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856699965354728429, guid: e43b097ddfab63948bef74ba29c2321d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4865,7 +4798,7 @@ SceneRoots:
   - {fileID: 907655241}
   - {fileID: 1152339311}
   - {fileID: 106492960}
-  - {fileID: 1680538951}
+  - {fileID: 7086349320234700157}
   - {fileID: 513222245}
   - {fileID: 1113377707}
   - {fileID: 820033560525044411}
