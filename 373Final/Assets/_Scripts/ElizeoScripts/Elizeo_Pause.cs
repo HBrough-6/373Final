@@ -21,13 +21,13 @@ public class Elizeo_Pause : MonoBehaviour
     [SerializeField] private GameObject gameMapObject;
 
     //Object is basically a bigger crosshair that is easier for the player to see.
-    [SerializeField] private GameObject pauseCrosshair;
+    //[SerializeField] private GameObject pauseCrosshair;
 
 
     //These crosshairs should be in the same location as the crosshairs in the Minimap
-    private Transform _pausedPlayerIcon;
-    private Transform _playerTransform; //Should find the player, just like in the Minimap Script.
-    [SerializeField] private float _pausedPlayerIconOffset;
+    //private Transform _pausedPlayerIcon;
+    //private Transform _playerTransform; //Should find the player, just like in the Minimap Script.
+    //[SerializeField] private float _pausedPlayerIconOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class Elizeo_Pause : MonoBehaviour
         onMapMenu = false;
         pauseObject.SetActive(false);
         pauseMap.SetActive(false);
-        FindPauseCrosshair();
+    //    FindPauseCrosshair();
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class Elizeo_Pause : MonoBehaviour
         //            gameMapObject.SetActive(false);
         //            isPaused = true;
         //        }
-        AdjustPlayertoPauseCrosshair();
+  //      AdjustPlayertoPauseCrosshair();
     }
 
     //What the pause bool is going to do.
@@ -83,11 +83,11 @@ public class Elizeo_Pause : MonoBehaviour
 
         if (onMapMenu)
         {
-            pauseCrosshair.SetActive(true);
+      //      pauseCrosshair.SetActive(true);
         }
         else
         {
-            pauseCrosshair.SetActive(false);
+       //     pauseCrosshair.SetActive(false);
         }
 
 
@@ -119,7 +119,7 @@ public class Elizeo_Pause : MonoBehaviour
         //SceneManager.LoadScene("_ElizeoMenu");
     }
 
-    private void FindPauseCrosshair()
+  /*  private void FindPauseCrosshair()
     {
         GameObject player = GameObject.FindWithTag("Player");
         GameObject pausedPlayerIcon = GameObject.FindWithTag("PauseCrosshair");
@@ -146,4 +146,5 @@ public class Elizeo_Pause : MonoBehaviour
 
         }
     }
+*/
 }

@@ -23,6 +23,7 @@ public class Elizeo_Minimap : MonoBehaviour
     //  }
 
     private Transform _playerTransform;
+    [SerializeField] private Transform _playerCamera;
     private Transform _playerIcon;
     [SerializeField] private float _playerIconOffset;
 
@@ -46,7 +47,7 @@ public class Elizeo_Minimap : MonoBehaviour
             _playerIcon.transform.position = new Vector3(_playerTransform.position.x, transform.position.y + _playerIconOffset, _playerTransform.position.z);
 
             // Calculate the desired rotation for the player icon
-            Quaternion desiredRotation = Quaternion.Euler(90f, _playerTransform.eulerAngles.y, 0f);
+            Quaternion desiredRotation = Quaternion.Euler(90f, _playerCamera.eulerAngles.y, 0f);
 
             // Match the player icon's rotation to the desired rotation
             _playerIcon.rotation = desiredRotation;
