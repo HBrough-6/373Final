@@ -4,11 +4,16 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class InspectableObject : Interactable
 {
     [SerializeField] private GameObject ObjectPrefab;
-    [SerializeField] private GameObject CutCam;
     [SerializeField] private GameObject inspectCamPos;
-    [SerializeField] private Transform objectSpawnPoint;
-    [SerializeField] private InspectSystem inspectSystem;
+    private InspectSystem inspectSystem;
     private bool inspecting = false;
+
+    [SerializeField] private bool canInspectMoreThanOnce = true;
+
+    private void Awake()
+    {
+        inspectSystem = InspectSystem.Instance;
+    }
 
     public override void Activate()
     {
@@ -19,16 +24,15 @@ public class InspectableObject : Interactable
     public void Inspect()
     {
         // start inpecting
-        GameObject temp = Instantiate(ObjectPrefab, objectSpawnPoint.position, objectSpawnPoint.rotation);
-        inspectSystem.StartInspecting(temp, this);
+        inspectSystem.StartInspecting(ObjectPrefab, this);
     }
 
     public void ToggleInspectCam()
     {
         inspecting = !inspecting;
-        CutCam.transform.position = inspectCamPos.transform.position;
-        CutCam.transform.rotation = inspectCamPos.transform.rotation;
-        CutCam.SetActive(inspecting);
+        CutCam.position = inspectCamPos.transform.position;
+        CutCam.rotation = inspectCamPos.transform.rotation;
+        CutCam.gameObject.SetActive(inspecting);
     }
 
     private void UIAppearDelay()
@@ -49,6 +53,10 @@ public class InspectableObject : Interactable
         player.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(true);
         PlayerInteraction.Instance.ToggleInteraction();
         player.GetComponent<FirstPersonController>().ToggleMovement();
-        ToggleCanBeInteractedWith();
+        if (!canInspectMoreThanOnce)
+        {
+            player.ClearInteraction();
+            GunController.Instance.EnableGun();
+        }
     }
 }

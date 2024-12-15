@@ -5,13 +5,28 @@ public class InspectSystem : MonoBehaviour
     [SerializeField] private Transform objectToInspect;
     [SerializeField] private InspectableObject objectHandler;
     [SerializeField] private Camera inspectCamera;
+    private Transform objectSpawnPoint;
 
+    public static InspectSystem Instance;
 
     public float rotationSpeed = 100f;
 
     private Vector3 previousMousePosition;
 
     private bool inspecting = false;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+
+        objectSpawnPoint = inspectCamera.transform.GetChild(0).transform;
+    }
 
     // Update is called once per frame
     void Update()
@@ -39,9 +54,10 @@ public class InspectSystem : MonoBehaviour
         }
     }
 
-    public void StartInspecting(GameObject objToInspect, InspectableObject currentObject)
+    public void StartInspecting(GameObject inspectPrefab, InspectableObject currentObject)
     {
         inspecting = true;
+        GameObject objToInspect = Instantiate(inspectPrefab, objectSpawnPoint.position, objectSpawnPoint.rotation);
         objectToInspect = objToInspect.transform;
         objectHandler = currentObject;
         transform.GetChild(0).gameObject.SetActive(true);

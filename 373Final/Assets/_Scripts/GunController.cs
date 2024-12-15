@@ -10,14 +10,14 @@ public class GunController : MonoBehaviour
     [SerializeField] private Animator aimAnimator;
     [SerializeField] private GameObject BulletHole;
 
-    private bool canShoot = true;
+    public bool canShoot = false;
     [SerializeField] float timeBetweenShots = 0.15f;
     [SerializeField] float bulletDissappearDelay = 3;
 
 
     [SerializeField] private CinemachineVirtualCamera cmCamera;
 
-    private bool equipped = true;
+    public bool equipped = true;
 
     public float easeOutMod = 1.25f;
     public float recoilAmt = 10;
@@ -27,19 +27,25 @@ public class GunController : MonoBehaviour
 
     private Coroutine returningToPos;
 
+    public static GunController Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+
+        Instance = this;
+    }
+
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (canShoot && equipped && context.started)
+        if (equipped && context.started && gun.activeInHierarchy)
         {
             // play shooting animation
-            if (gunAnimator.GetBool("Shoot"))
-            {
-                gunAnimator.SetBool("Again", true);
-            }
-            else
-            {
-                gunAnimator.SetBool("Shoot", true);
-            }
+
 
             // shoot a ray from the middle of the camera
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
@@ -51,6 +57,10 @@ public class GunController : MonoBehaviour
                 {
                     Destroy(hit.collider.gameObject);
                     PlayerInventory.Instance.IncreaseScore(100);
+                }
+                else if (hit.collider.CompareTag("Cody"))
+                {
+                    return;
                 }
                 else if (hit.collider.CompareTag("FirstCoinShootable"))
                 {
@@ -67,6 +77,16 @@ public class GunController : MonoBehaviour
                     StartCoroutine(DestroyBulletHole(bulletHoleTemp));
                 }
             }
+
+            if (gunAnimator.GetBool("Shoot"))
+            {
+                gunAnimator.SetBool("Again", true);
+            }
+            else
+            {
+                gunAnimator.SetBool("Shoot", true);
+            }
+
             // start the shooting delay
             StartCoroutine(Recoil());
             StartCoroutine(ShootDelay());
@@ -135,34 +155,37 @@ public class GunController : MonoBehaviour
         float currentRecoil = recoilAmt;
         while (currentRecoil > 9.5f)
         {
-            easeOutVal = Mathf.Lerp(easeOutVal, 0, Time.deltaTime * dtMod);
-            currentRecoil = Mathf.Lerp(currentRecoil * (easeOutVal * easeOutMod), 0, Time.deltaTime);
+            easeOutVal = Mathf.Lerp(easeOutVal, 0, 0.02f * dtMod);
+            currentRecoil = Mathf.Lerp(currentRecoil * (easeOutVal * easeOutMod), 0, 0.02f);
 
-            temp.m_VerticalAxis.Value -= currentRecoil * Time.deltaTime;
+            temp.m_VerticalAxis.Value -= currentRecoil * 0.02f;
 
             yield return new WaitForEndOfFrame();
 
         }
         StartCoroutine(GoDown());
     }
+
     private IEnumerator GoDown()
     {
         CinemachinePOV temp = cmCamera.GetCinemachineComponent<CinemachinePOV>();
         float easeOutVal = 1;
         float currentRecoil = recoilAmt;
-        for (float i = 0; i < 2; i += Time.deltaTime)
+        for (float i = 0; i < 2; i += 0.02f)
         {
-            easeOutVal = Mathf.Lerp(easeOutVal, 0, Time.deltaTime * dtMod2);
+            easeOutVal = Mathf.Lerp(easeOutVal, 0, 0.02f * dtMod2);
             currentRecoil = Mathf.Lerp(currentRecoil * (easeOutVal * easeOutMod), 0, Time.deltaTime);
 
-            temp.m_VerticalAxis.Value += currentRecoil * Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            temp.m_VerticalAxis.Value += currentRecoil * 0.02f;
+            yield return new WaitForFixedUpdate();
         }
     }
 
     public void EnableGun()
     {
-        transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+
+        gun.SetActive(true);
+        canShoot = true;
     }
 }
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,18 +23,18 @@ public class PowerBox : Interactable
         if (!activated)
         {
             Debug.Log("inner");
-            StartCoroutine(FlipLever());
+            FlipLever();
         }
 
     }
 
 
 
-    private IEnumerator FlipLever()
+    private void FlipLever()
     {
         lever.SetBool("Flip", true);
         // check when the animation is over
-        while (!lever.GetCurrentAnimatorStateInfo(0).IsName("Flipped")) yield return new WaitForSeconds(0.2f);
+
         activated = true;
         for (int i = 0; i < objects.Count(); i++)
         {

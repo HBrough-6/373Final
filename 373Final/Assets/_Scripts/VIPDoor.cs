@@ -3,6 +3,8 @@ using UnityEngine;
 public class VIPDoor : Interactable
 {
 
+    private bool open = false;
+
     private void Awake()
     {
         ToggleCanBeInteractedWith();
@@ -14,7 +16,8 @@ public class VIPDoor : Interactable
     public void OpenDoor()
     {
         // play opening animation
-        gameObject.GetComponent<Animator>().SetBool("Unlocked", true);
+        open = !open;
+        gameObject.GetComponent<Animator>().SetBool("Open", true);
         ToggleCanBeInteractedWith();
     }
 

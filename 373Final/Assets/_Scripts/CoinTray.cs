@@ -16,7 +16,6 @@ public class CoinTray : Interactable
     [SerializeField] private VIPDoor vipDoor;
 
     [SerializeField] private CoinTrayUI ui;
-    [SerializeField] private Transform CutCam;
     [SerializeField] private Transform CamPos;
 
     [SerializeField] private GameObject copperCoinPrefab;
@@ -53,6 +52,14 @@ public class CoinTray : Interactable
         ones = transform.GetChild(0).GetChild(2).GetComponent<TMP_Text>();
         tens = transform.GetChild(0).GetChild(1).GetComponent<TMP_Text>();
         hundreds = transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
+
+        ToggleCanBeInteractedWith();
+    }
+
+    public void PowerUp()
+    {
+        ToggleCanBeInteractedWith();
+        // lightParent.setActive(true);
     }
 
     public override void Activate()
