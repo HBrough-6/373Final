@@ -10,6 +10,7 @@ TagManager:
   - FirstCoinShootable
   - PlayerMap
   - PauseCrosshair
+  - PlayerTransform
   layers:
   - Default
   - TransparentFX

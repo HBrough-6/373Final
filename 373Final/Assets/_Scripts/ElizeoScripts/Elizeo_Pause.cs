@@ -21,7 +21,7 @@ public class Elizeo_Pause : MonoBehaviour
     [SerializeField] private GameObject gameMapObject;
 
     //Object is basically a bigger crosshair that is easier for the player to see.
-    [SerializeField] private GameObject pauseCrosshair;
+    //[SerializeField] private GameObject pauseCrosshair;
 
 
     //These crosshairs should be in the same location as the crosshairs in the Minimap
@@ -83,11 +83,11 @@ public class Elizeo_Pause : MonoBehaviour
 
         if (onMapMenu)
         {
-            pauseCrosshair.SetActive(true);
+      //      pauseCrosshair.SetActive(true);
         }
         else
         {
-            pauseCrosshair.SetActive(false);
+       //     pauseCrosshair.SetActive(false);
         }
 
 
