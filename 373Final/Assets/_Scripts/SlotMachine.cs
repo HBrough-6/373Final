@@ -74,9 +74,7 @@ public class SlotMachine : Interactable
     private IEnumerator RotateWheels(float wheel1Rotation, float wheel2Rotation, float wheel3Rotation, int outcome)
     {
         float spinSpeed = 360;
-        bool done1 = false;
-        bool done2 = false;
-        bool done3 = false;
+        int done1 = 0;
         yield return new WaitForSeconds(0.8333f);
         float startTime = Time.time;
 
@@ -101,41 +99,46 @@ public class SlotMachine : Interactable
             yield return new WaitForEndOfFrame();
         }
         startTime = Time.time;
-        while (!done1 || !done2 || !done3)
+        while (done1 < 3)
         {
-            if (Time.time - startTime > 2 && !done1)
+            if (Time.time - startTime > 2 && done1 < 1)
             {
                 wheel1.localRotation = Quaternion.Euler(wheel1Rotation, 0, 0);
-                done1 = true;
+                done1 = 1;
             }
 
-            if (Time.time - startTime > 3 && done1 && !done2)
+            if (Time.time - startTime > 3 && done1 < 2)
             {
                 wheel2.localRotation = Quaternion.Euler(wheel2Rotation, wheel2.rotation.y, 0);
-                done2 = true;
+                done1 = 2;
             }
 
-            if (Time.time - startTime > 4 && done2 && !done3)
+            if (Time.time - startTime > 4 && done1 < 3)
             {
                 wheel3.localRotation = Quaternion.Euler(wheel3Rotation, 0, 0);
-                done3 = true;
+                done1 = 3;
+                PlayerInventory.Instance.addCopperCoins(outcome);
+                PlayerInventory.Instance.addSilverCoins(outcome);
+                PlayerInventory.Instance.addGoldCoins(outcome);
+                yield return new WaitForSecondsRealtime(1);
+
+                ToggleCutCam();
             }
 
-            if (!done1)
+            if (done1 < 1)
                 wheel1.Rotate(new Vector3(spinSpeed * Time.deltaTime, 0, 0));
 
-            if (!done2)
+            if (done1 < 2)
                 wheel2.Rotate(new Vector3(spinSpeed * Time.deltaTime, 0, 0));
 
-            if (!done3)
+            if (done1 < 3)
                 wheel3.Rotate(new Vector3(spinSpeed * Time.deltaTime, 0, 0));
             yield return new WaitForEndOfFrame();
+            Debug.Log(done1);
         }
-        PlayerInventory.Instance.addCopperCoins(outcome);
-        PlayerInventory.Instance.addSilverCoins(outcome);
-        PlayerInventory.Instance.addGoldCoins(outcome);
-        yield return new WaitForSecondsRealtime(1);
-        ToggleCutCam();
+
+
+
     }
 
     public void ToggleCutCam()
