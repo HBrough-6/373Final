@@ -8,6 +8,7 @@ TagManager:
   - Coin
   - ShootableEmblem
   - FirstCoinShootable
+  - PlayerMap
   layers:
   - Default
   - TransparentFX
