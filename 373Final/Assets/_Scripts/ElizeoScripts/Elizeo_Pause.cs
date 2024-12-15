@@ -76,7 +76,7 @@ public class Elizeo_Pause : MonoBehaviour
             if (Input.GetKey(KeyCode.Escape))
             {
                 pauseObject.SetActive(true);
-                gameMapObject.SetActive(false);
+                //gameMapObject.SetActive(false);
                 isPaused = true;
             }
         }
@@ -104,7 +104,7 @@ public class Elizeo_Pause : MonoBehaviour
     {
         pauseMap.SetActive(true);
         pauseObject.SetActive(false);
-        onMapMenu = true;
+        //onMapMenu = true;
     }
 
     public void OnReturnFromMap()
