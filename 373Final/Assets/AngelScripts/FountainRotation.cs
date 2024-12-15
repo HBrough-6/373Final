@@ -12,12 +12,22 @@ public class FountainRotation : MonoBehaviour
     [Tooltip("Check this box to reverse the rotation direction.")]
     public bool reverseDirection = false;
 
+    private bool hasPower = false;
+
     private void Update()
     {
         // Adjust rotation speed based on the reverseDirection checkbox
-        float adjustedSpeed = reverseDirection ? -rotationSpeed : rotationSpeed;
+        if (hasPower)
+        {
+            float adjustedSpeed = reverseDirection ? -rotationSpeed : rotationSpeed;
 
-        // Lock the object to only rotate around the Y-axis
-        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + adjustedSpeed * Time.deltaTime, 0);
+            // Lock the object to only rotate around the Y-axis
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + adjustedSpeed * Time.deltaTime, 0);
+        }
+    }
+
+    public void PowerOn()
+    {
+        hasPower = true;
     }
 }
