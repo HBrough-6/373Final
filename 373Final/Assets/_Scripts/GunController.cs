@@ -10,6 +10,9 @@ public class GunController : MonoBehaviour
     [SerializeField] private Animator aimAnimator;
     [SerializeField] private GameObject BulletHole;
 
+    [SerializeField] private GameObject DisrespectText;
+    [SerializeField] private float disrespectTextDisappearTime = 2;
+
     public bool canShoot = false;
     [SerializeField] float timeBetweenShots = 0.15f;
     [SerializeField] float bulletDissappearDelay = 3;
@@ -26,6 +29,7 @@ public class GunController : MonoBehaviour
 
 
     private Coroutine returningToPos;
+    private Coroutine DisrespectDissappearTimer;
 
     public static GunController Instance;
 
@@ -40,13 +44,32 @@ public class GunController : MonoBehaviour
         Instance = this;
     }
 
+    private void FixedUpdate()
+    {
+        // protect my goat
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+        RaycastHit hit;
+
+        if (equipped && Physics.Raycast(ray, out hit) && hit.collider.CompareTag("Cody"))
+        {
+            if (DisrespectDissappearTimer != null)
+            {
+                StopCoroutine(DisrespectDissappearTimer);
+            }
+            // stow the weapon
+            gunAnimator.SetBool("Equip", false);
+            equipped = !equipped;
+            Debug.Log("Do Not Disrespect the Captain");
+            DisrespectText.SetActive(true);
+            DisrespectDissappearTimer = StartCoroutine(DisappearDisrespectText());
+            return;
+        }
+    }
+
     public void Shoot(InputAction.CallbackContext context)
     {
         if (equipped && context.started && gun.activeInHierarchy)
         {
-            // play shooting animation
-
-
             // shoot a ray from the middle of the camera
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
             RaycastHit hit;
@@ -57,10 +80,6 @@ public class GunController : MonoBehaviour
                 {
                     Destroy(hit.collider.gameObject);
                     PlayerInventory.Instance.IncreaseScore(100);
-                }
-                else if (hit.collider.CompareTag("Cody"))
-                {
-                    return;
                 }
                 else if (hit.collider.CompareTag("FirstCoinShootable"))
                 {
@@ -78,6 +97,7 @@ public class GunController : MonoBehaviour
                 }
             }
 
+            // play shooting animation
             if (gunAnimator.GetBool("Shoot"))
             {
                 gunAnimator.SetBool("Again", true);
@@ -181,9 +201,14 @@ public class GunController : MonoBehaviour
         }
     }
 
+    private IEnumerator DisappearDisrespectText()
+    {
+        yield return new WaitForSeconds(disrespectTextDisappearTime);
+        DisrespectText.SetActive(false);
+    }
+
     public void EnableGun()
     {
-
         gun.SetActive(true);
         canShoot = true;
     }
