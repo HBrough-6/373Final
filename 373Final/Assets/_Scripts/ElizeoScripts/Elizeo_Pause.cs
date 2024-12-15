@@ -25,9 +25,9 @@ public class Elizeo_Pause : MonoBehaviour
 
 
     //These crosshairs should be in the same location as the crosshairs in the Minimap
-    private Transform _pausedPlayerIcon;
-    private Transform _playerTransform; //Should find the player, just like in the Minimap Script.
-    [SerializeField] private float _pausedPlayerIconOffset;
+    //private Transform _pausedPlayerIcon;
+    //private Transform _playerTransform; //Should find the player, just like in the Minimap Script.
+    //[SerializeField] private float _pausedPlayerIconOffset;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class Elizeo_Pause : MonoBehaviour
         onMapMenu = false;
         pauseObject.SetActive(false);
         pauseMap.SetActive(false);
-        FindPauseCrosshair();
+    //    FindPauseCrosshair();
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class Elizeo_Pause : MonoBehaviour
         //            gameMapObject.SetActive(false);
         //            isPaused = true;
         //        }
-        AdjustPlayertoPauseCrosshair();
+  //      AdjustPlayertoPauseCrosshair();
     }
 
     //What the pause bool is going to do.
@@ -119,7 +119,7 @@ public class Elizeo_Pause : MonoBehaviour
         //SceneManager.LoadScene("_ElizeoMenu");
     }
 
-    private void FindPauseCrosshair()
+  /*  private void FindPauseCrosshair()
     {
         GameObject player = GameObject.FindWithTag("Player");
         GameObject pausedPlayerIcon = GameObject.FindWithTag("PauseCrosshair");
@@ -146,4 +146,5 @@ public class Elizeo_Pause : MonoBehaviour
 
         }
     }
+*/
 }
