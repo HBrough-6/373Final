@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerInteraction : MonoBehaviour
 {
     public delegate void InteractionDelegate();
-    public InteractionDelegate interaction;
+    private InteractionDelegate interaction;
     private bool locked = false;
 
     public static PlayerInteraction Instance;
