@@ -25,15 +25,7 @@ public class InspectableObject : Interactable
     {
         Debug.Log("2");
         // start inpecting
-<<<<<<< Updated upstream
         inspectSystem.StartInspecting(ObjectPrefab, gameObject.GetComponent<InspectableObject>());
-=======
-        if (ObjectPrefab)
-            Debug.Log("Object");
-        if (this == null)
-            Debug.Log("This");
-        inspectSystem.StartInspecting(ObjectPrefab, GetComponent<InspectableObject>());
->>>>>>> Stashed changes
     }
 
     public void ToggleInspectCam()
