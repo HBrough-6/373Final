@@ -8,7 +8,7 @@ public class Elizeo_MainMenu : MonoBehaviour
 {
     public void OnStartButton()
     {
-        //SceneManager.LoadScene("_ElizeoScene");
+        SceneManager.LoadScene("Please Work");
         Debug.Log("Going to the Game Scene");
     }
 
