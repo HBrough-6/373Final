@@ -5,14 +5,14 @@ public class InspectableObject : Interactable
 {
     [SerializeField] private GameObject ObjectPrefab;
     [SerializeField] private GameObject inspectCamPos;
-    private InspectSystem inspectSystem;
+    [SerializeField] private InspectSystem inspectSystem;
     private bool inspecting = false;
 
     [SerializeField] private bool canInspectMoreThanOnce = true;
 
     private void Awake()
     {
-        inspectSystem = InspectSystem.Instance;
+        // inspectSystem = InspectSystem.Instance;
     }
 
     public override void Activate()
@@ -65,7 +65,7 @@ public class InspectableObject : Interactable
         PlayerInteraction.Instance.ToggleInteraction();
         player.GetComponent<FirstPersonController>().ToggleMovement();
 
-        if (!canInspectMoreThanOnce)
+        if (canInspectMoreThanOnce)
         {
             player.ClearInteraction();
             GunController.Instance.EnableGun();

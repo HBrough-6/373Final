@@ -5,6 +5,8 @@ public class VIPDoor : Interactable
 
     private bool open = false;
 
+    [SerializeField] private AudioClip DoorOpen;
+
     private void Awake()
     {
         ToggleCanBeInteractedWith();
@@ -19,6 +21,7 @@ public class VIPDoor : Interactable
         open = !open;
         gameObject.GetComponent<Animator>().SetBool("Open", true);
         ToggleCanBeInteractedWith();
+        GetComponent<AudioSource>().PlayOneShot(DoorOpen);
     }
 
     public override void Activate()

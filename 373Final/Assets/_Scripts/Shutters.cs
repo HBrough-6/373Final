@@ -3,6 +3,11 @@ using UnityEngine;
 public class Shutters : Interactable
 {
     private Animator animator;
+
+    [SerializeField] private AudioClip ShutterOpen;
+    [SerializeField] private GameObject InspectableRegister;
+
+
     private void Awake()
     {
         ToggleCanBeInteractedWith();
@@ -19,5 +24,16 @@ public class Shutters : Interactable
     {
         animator.SetBool("Open", true);
         ToggleCanBeInteractedWith();
+        GetComponent<AudioSource>().PlayOneShot(ShutterOpen);
+    }
+
+    public void StopShutterSound()
+    {
+        GetComponent<AudioSource>().Stop();
+    }
+
+    public void ActivateCashRegister()
+    {
+        InspectableRegister.SetActive(true);
     }
 }

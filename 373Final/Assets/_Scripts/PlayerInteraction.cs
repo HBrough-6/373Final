@@ -53,7 +53,6 @@ public class PlayerInteraction : MonoBehaviour
         if (interaction != null && context.started && !locked)
         {
             interaction();
-
         }
     }
 
