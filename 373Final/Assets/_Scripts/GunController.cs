@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class GunController : MonoBehaviour
 {
     [SerializeField] private GameObject gun;
-    [SerializeField] private Animator gunAnimator;
+    [SerializeField] public Animator gunAnimator;
     [SerializeField] private Animator aimAnimator;
     [SerializeField] private GameObject BulletHole;
 
@@ -153,14 +153,30 @@ public class GunController : MonoBehaviour
         }
     }
 
-
-
+    public void ToggleGun()
+    {
+        ToggleReticle();
+        // if the weapon is currently equipped
+        if (equipped)
+        {
+            // stow the weapon
+            gunAnimator.SetBool("Equip", false);
+            // stop aiming down sights
+            aimAnimator.SetBool("Aim", false);
+        }
+        // if the weapon is currently stowed
+        else
+        {
+            // equip the weapon
+            gunAnimator.SetBool("Equip", true);
+        }
+        equipped = !equipped;
+    }
 
     public void Aim(InputAction.CallbackContext context)
     {
         if (equipped)
         {
-            ToggleReticle();
             if (context.started)
             {
                 // aim down sights
