@@ -60,8 +60,8 @@ public class Elizeo_Pause : MonoBehaviour
             Time.timeScale = 0;
 
             //Makes the cursor appear. Fixes a bug that freezes the game.
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
 
 
         }
@@ -70,8 +70,8 @@ public class Elizeo_Pause : MonoBehaviour
             Time.timeScale = 1;
 
             //Makes the cursor disappear again and go back to player.
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
 
             if (Input.GetKey(KeyCode.Escape))
             {

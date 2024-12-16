@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class InspectSystem : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class InspectSystem : MonoBehaviour
 
     public void StartInspecting(GameObject inspectPrefab, InspectableObject currentObject)
     {
+        //PlayerInventory.Instance.gameObject.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(false);
         inspecting = true;
         GameObject objToInspect = Instantiate(inspectPrefab, objectSpawnPoint.position, objectSpawnPoint.rotation);
         objectToInspect = objToInspect.transform;
@@ -74,6 +76,7 @@ public class InspectSystem : MonoBehaviour
         // set the UI inactive
         transform.GetChild(0).gameObject.SetActive(false);
         inspectCamera.gameObject.SetActive(false);
+        //PlayerInventory.Instance.gameObject.GetComponent<FirstPersonController>().m_MouseLook.SetCursorLock(false);
 
 
     }
