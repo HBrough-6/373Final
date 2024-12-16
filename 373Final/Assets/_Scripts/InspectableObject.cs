@@ -33,7 +33,7 @@ public class InspectableObject : Interactable
         inspecting = !inspecting;
         CutCam.position = inspectCamPos.transform.position;
         CutCam.rotation = inspectCamPos.transform.rotation;
-        CutCam.gameObject.SetActive(inspecting);
+        CutCamSingleton.Instance.gameObject.SetActive(inspecting);
     }
 
     private void UIAppearDelay()

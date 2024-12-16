@@ -13,6 +13,11 @@ public class BlendCamSingleton : MonoBehaviour
         }
 
         Instance = this;
+        
+    }
+
+    private void Start()
+    {
         this.gameObject.SetActive(false);
     }
 

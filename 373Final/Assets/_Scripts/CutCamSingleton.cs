@@ -13,6 +13,10 @@ public class CutCamSingleton : MonoBehaviour
         }
 
         Instance = this;
+    }
+
+    private void Start()
+    {
         this.gameObject.SetActive(false);
     }
 }
