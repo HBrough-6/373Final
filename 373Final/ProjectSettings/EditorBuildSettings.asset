@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/_Scenes/MiscScenes/Heath Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/_Scenes/_ElizeoMenu.unity
+    path: Assets/_Scenes/MiscScenes/_ElizeoMenu.unity
     guid: ce558ea032c057243a7c889d498af0e1
   - enabled: 1
-    path: Assets/_Scenes/Please Work.unity
+    path: Assets/_Scenes/373Game_Group3.unity
     guid: 750c8c0534e4d224e9f63432812ade63
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a5a82ddf03935c14492fc1e4e2b9b93e,
